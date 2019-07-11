@@ -6,10 +6,10 @@ var io = require('socket.io')(http);
 var mysql = require('mysql');
 var mysql = mysql.createConnection({
     host: 'localhost',
-    user : 'gangtool2',
-    password : 'askjasfiqwr@!uu53d1',
+    user : 'user',
+    password : 'pass',
     insecureAuth: true,
-    database: 'gangtool2'
+    database: 'database'
 });
 mysql.connect();
 
