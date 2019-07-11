@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Chat</title>
+    <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.10.0.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="http://code.jquery.com/qunit/qunit-1.10.0.js"></script>
+    <script src="http://gangtool2.stup.kr/node/js/jquery.cookie.js"></script>
+    <style>
+      .chat_log{ width: 95%; height: 200px; }
+      .name{ width: 10%; }
+      .message{ width: 70%; }
+      .chat{ width: 10%; }
+    </style>
+  </head>
+<div id="test"></div>
+
+<script>
+    //window.location.href
+    //현재 url
+    var socket = io();
+    var fs = require('fs');
+    fs.readFile('gang_head.html', 'utf8', function(err, data){
+      $("#test").html(data);
+    });
+</script>
+test page

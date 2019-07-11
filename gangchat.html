@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Chat</title>
+    <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.10.0.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="http://code.jquery.com/qunit/qunit-1.10.0.js"></script>
+    <script src="http://gangtool2.stup.kr/node/js/jquery.cookie.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+    <style>
+      .chat_log{ width: 95%; height: 200px; }
+
+    </style>
+  </head>
+  <body>
+
+    <div class="">
+
+        <div id="gang_chat" class="container">
+          <textarea id="chatLog" class="chat_log" readonly></textarea>
+        </div>
+
+        <div class="container">
+
+            <form id="chat" class="form-inline">
+                <input type="hidden" id="gang_no">
+            <div class="form-group col-xs-3">
+              <input id="name" class="name form-control" type="text" readonly>
+            </div>
+            <div class="form-group col-xs-7">
+              <input id="message" class="message form-control" style="width:100%" type="text">
+            </div>
+            <div class="form-group col-xs-2">
+              <button type="submit" class="btn btn-primary">전송</button>
+            </div>
+            </form>
+
+        </div>
+
+
+</div>
+    <div id="box" class="box">
+    </div>
+
+
+
+    <script>
+    //$.cookie('c', 'v');
+    //console.log($.cookie('c'));
+      var gangno = $('#gang_no').val();
+      var socket = io();
+
+      socket.on('get user_id', function(user_id){
+        $('#name').val(user_id);
+      });
+      socket.on('get gang_no', function(gang_no){
+        $('#gang_no').val(gang_no);
+        //$("##gang_chat").html('');
+        //$("#gang_chat").append("<textarea id="+gang_no+">test</textarea>");
+      });
+
+      $('#chat').on('submit', function(e){
+        socket.emit('send message', $('#name').val(), $('#gang_no').val(), $('#message').val());
+        $('#message').val("");
+        $("#message").focus();
+        e.preventDefault();
+      });
+
+      socket.on('receive message', function(msg){
+        $('#chatLog').append(msg+'\n');
+        $('#chatLog').scrollTop($('#chatLog')[0].scrollHeight);
+        //window.parent.location.href="http://naver.com";  //" "안에 이동할 주소를 입력하면 된다.
+      });
+      socket.on('change name', function(name){
+        $('#name').val(name);
+      });
+
+      $(document).ready(function(){
+          //채팅방 랑제 입장처리
+          setTimeout(function() {
+              socket.emit('send message', $('#name').val(), $('#gang_no').val(), $('#name').val()+'님이 입장하였습니다.');
+          }, 1000);
+      });
+    </script>
+  </body>
+</html>

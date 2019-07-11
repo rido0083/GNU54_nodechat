@@ -1,0 +1,17 @@
+{
+  "name": "chat",
+  "version": "1.0.0",
+  "description": "이 저장소의 코드는 [http://a-mean-blog.com/ko/blog/단편강좌/_/Node-JS-Socket-io-채팅사이트-만들기](http://a-mean-blog.com/ko/blog/단편강좌/_/Node-JS-Socket-io-채팅사이트-만들기)에서 작성되었습니다. <br>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql": "2.17.1",
+    "socket.io": "^2.2.0"
+  },
+  "devDependencies": {}
+}
